@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../Navigations/RootNavigator';
@@ -30,9 +30,16 @@ const PasswordChangedScreen = () => {
         <Text style={styles.successTitle}>Changed Successfully</Text>
       </View>
 
-      <View style={styles.buttonContainer}>
-        <Button title="Continue" onPress={handleContinue} />
-      </View>
+      <TouchableOpacity style={styles.buttonContainer} onPress={handleContinue}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text style={styles.buttonText}>Continue</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

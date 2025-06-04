@@ -1,24 +1,24 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import HomeScreen from '../Screens/HomeScreen';
-import ProfileScreen from '../Screens/ProfileScreen';
+import HomeScreen from '../Screens/MainScreens/HomeScreen';
+import ProfileScreen from '../Screens/MainScreens/ProfileScreen';
+import YourCaseScreen from '../Screens/MainScreens/YourCaseScreens';
+import FineScreen from '../Screens/MainScreens/FineScreens';
+import RuleStackNavigator from '../Screens/MainScreens/RuleScreen/RuleStackNavigator';
+
 import {Colors} from '../Styles/colors';
 import {View, StyleSheet} from 'react-native';
 
 export type BottomTabParamList = {
   Home: undefined;
-  Analytics: undefined;
-  Transfer: undefined;
-  Documents: undefined;
+  YourCase: undefined;
+  Fine: undefined;
+  Rule: undefined;
   Profile: undefined;
 };
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
-
-const AnalyticsScreen = () => <View style={styles.placeholder} />;
-const TransferScreen = () => <View style={styles.placeholder} />;
-const DocumentsScreen = () => <View style={styles.placeholder} />;
 
 const BottomNavigator = () => {
   return (
@@ -29,11 +29,11 @@ const BottomNavigator = () => {
 
           if (route.name === 'Home') {
             iconName = 'home';
-          } else if (route.name === 'Analytics') {
+          } else if (route.name === 'YourCase') {
             iconName = 'bar-chart';
-          } else if (route.name === 'Transfer') {
+          } else if (route.name === 'Fine') {
             iconName = 'swap-horiz';
-          } else if (route.name === 'Documents') {
+          } else if (route.name === 'Rule') {
             iconName = 'folder';
           } else if (route.name === 'Profile') {
             iconName = 'account-circle';
@@ -82,9 +82,9 @@ const BottomNavigator = () => {
         headerShown: false,
       })}>
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Analytics" component={AnalyticsScreen} />
-      <Tab.Screen name="Transfer" component={TransferScreen} />
-      <Tab.Screen name="Documents" component={DocumentsScreen} />
+      <Tab.Screen name="YourCase" component={YourCaseScreen} />
+      <Tab.Screen name="Fine" component={FineScreen} />
+      <Tab.Screen name="Rule" component={RuleStackNavigator} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );

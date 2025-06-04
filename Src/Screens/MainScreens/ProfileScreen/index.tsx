@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Colors} from '../../Styles/colors';
+import {Colors} from '../../../Styles/colors';
 import {StyleSheet} from 'react-native';
 
 const ProfileScreen = () => {

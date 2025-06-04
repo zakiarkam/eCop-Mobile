@@ -86,11 +86,17 @@ const styles = StyleSheet.create({
     margin: 40,
     backgroundColor: Colors.lightBlue,
     borderRadius: 30,
-    padding: 5,
+    padding: 15,
     fontStyle: 'italic',
     fontWeight: 'bold',
     shadowColor: Colors.shadow,
     color: Colors.white,
+  },
+  buttonText: {
+    fontSize: 20,
+    color: Colors.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 

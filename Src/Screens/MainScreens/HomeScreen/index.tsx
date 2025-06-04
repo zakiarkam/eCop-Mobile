@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, SafeAreaView, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Header from '../../Components/Header';
-import StatsCard from '../../Components/StatsCard';
-import ProgressCard from '../../Components/ProgressCard';
-import SavingsCard from '../../Components/SavingsCard';
+import Header from '../../../Components/Header';
+import StatsCard from '../../../Components/StatsCard';
+import ProgressCard from '../../../Components/ProgressCard';
+import SavingsCard from '../../../Components/SavingsCard';
 import {styles} from './Styles';
 
 const HomeScreen = () => {
