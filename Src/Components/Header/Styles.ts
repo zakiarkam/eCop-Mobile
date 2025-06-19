@@ -42,6 +42,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  profileInitial: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.white,
+  },
 
   // Modal Styles
   modalOverlay: {
@@ -74,18 +79,18 @@ export const styles = StyleSheet.create({
   profileImageContainer: {
     marginRight: 15,
   },
-  profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
   defaultProfileImage: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#4a90e2',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  profileImageInitial: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
   },
   userInfo: {
     flex: 1,
@@ -99,6 +104,13 @@ export const styles = StyleSheet.create({
   userEmail: {
     fontSize: 14,
     color: '#666',
+    marginBottom: 2,
+  },
+  userType: {
+    fontSize: 12,
+    color: '#4a90e2',
+    fontWeight: '500',
+    textTransform: 'capitalize',
   },
   divider: {
     height: 1,

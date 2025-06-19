@@ -4,20 +4,22 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../Navigations/RootNavigator';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import CustomButton from '../../Components/CustomButton';
 import styles from './Styles';
 import {Colors} from '../../Styles/colors';
 
 type PasswordChangedNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  'Main'
+  'Auth'
 >;
 
 const PasswordChangedScreen = () => {
   const navigation = useNavigation<PasswordChangedNavigationProp>();
 
   const handleContinue = () => {
-    navigation.navigate('Main');
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Auth'}],
+    });
   };
 
   return (

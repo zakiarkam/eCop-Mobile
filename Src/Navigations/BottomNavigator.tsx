@@ -8,7 +8,8 @@ import FineScreen from '../Screens/MainScreens/FineScreens';
 import RuleStackNavigator from '../Screens/MainScreens/RuleScreen/RuleStackNavigator';
 
 import {Colors} from '../Styles/colors';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export type BottomTabParamList = {
   Home: undefined;
@@ -79,13 +80,69 @@ const BottomNavigator = () => {
         tabBarItemStyle: {
           paddingVertical: 5,
         },
-        headerShown: false,
+        headerShown: true,
       })}>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="YourCase" component={YourCaseScreen} />
-      <Tab.Screen name="Fine" component={FineScreen} />
-      <Tab.Screen name="Rule" component={RuleStackNavigator} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={() => ({
+          headerShown: false,
+        })}
+      />
+      <Tab.Screen
+        name="YourCase"
+        component={YourCaseScreen}
+        options={() => ({
+          headerShown: false,
+        })}
+      />
+      <Tab.Screen
+        name="Fine"
+        component={FineScreen}
+        options={() => ({
+          headerShown: false,
+        })}
+      />
+      <Tab.Screen
+        name="Rule"
+        component={RuleStackNavigator}
+        options={() => ({
+          headerShown: false,
+        })}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={({navigation}) => ({
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
+          headerTintColor: 'white',
+          headerShadowVisible: false,
+          title: 'My Profile',
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: '',
+          headerBackTitleVisible: false,
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{
+                marginLeft: 16,
+                marginBottom: 3,
+                padding: 4,
+                borderRadius: 20,
+                backgroundColor: Colors.lightBlue,
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+              onPress={() => navigation.goBack()}>
+              <Ionicons name="chevron-back" size={16} color="#ffff" />
+            </TouchableOpacity>
+          ),
+        })}
+      />
     </Tab.Navigator>
   );
 };

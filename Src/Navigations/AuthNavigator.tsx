@@ -9,9 +9,23 @@ import PasswordChangedScreen from '../Screens/AuthScreens/PasswordChangedScreen'
 export type AuthStackParamList = {
   Login: undefined;
   FirstTimeLogin: undefined;
-  TemporaryPassword: undefined;
-  NewPassword: undefined;
-  PasswordChanged: undefined;
+  TemporaryPassword: {
+    identificationNo: string;
+    email: string;
+    fullName: string;
+    userType: string;
+  };
+  NewPassword: {
+    identificationNo: string;
+    fullName: string;
+    userId: string;
+    userType: string;
+  };
+  PasswordChanged: {
+    fullName: string;
+    identificationNo: string;
+    userType: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();

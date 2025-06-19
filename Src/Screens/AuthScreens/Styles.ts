@@ -98,6 +98,107 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+
+  loadingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 16,
+  },
+  loadingText: {
+    marginLeft: 8,
+    fontSize: 14,
+    color: Colors.gray,
+  },
+
+  userTypeText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+
+  // Button disabled states
+  buttonDisabled: {
+    backgroundColor: Colors.lightGray,
+    opacity: 0.6,
+  },
+  buttonTextDisabled: {
+    color: Colors.gray,
+  },
+  secondaryButton: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    marginTop: 8,
+  },
+
+  // Welcome and info text
+  welcomeText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.primary,
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  infoText: {
+    fontSize: 12,
+    color: Colors.gray,
+    textAlign: 'center',
+    marginTop: 16,
+    fontStyle: 'italic',
+  },
+
+  passwordRequirements: {
+    backgroundColor: Colors.lightBlue,
+    padding: 12,
+    borderRadius: 8,
+    marginVertical: 16,
+  },
+  requirementsTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: Colors.darkGray,
+    marginBottom: 8,
+  },
+  requirementText: {
+    fontSize: 12,
+    color: Colors.darkGray,
+    marginBottom: 4,
+  },
+
+  successMessage: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.primary,
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  successDescription: {
+    fontSize: 14,
+    color: Colors.gray,
+    textAlign: 'center',
+    lineHeight: 20,
+    marginBottom: 20,
+  },
+  loginInfoContainer: {
+    backgroundColor: Colors.lightGray,
+    padding: 16,
+    borderRadius: 8,
+    width: '100%',
+    marginBottom: 20,
+  },
+  loginInfoTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: Colors.darkGray,
+    marginBottom: 8,
+  },
+  loginInfoText: {
+    fontSize: 13,
+    color: Colors.darkGray,
+    marginBottom: 4,
+  },
 });
 
 export default styles;
