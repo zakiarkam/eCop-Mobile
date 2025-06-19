@@ -1,23 +1,25 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../Navigations/RootNavigator';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import CustomButton from '../../Components/CustomButton';
 import styles from './Styles';
 import {Colors} from '../../Styles/colors';
 
 type PasswordChangedNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  'Main'
+  'Auth'
 >;
 
 const PasswordChangedScreen = () => {
   const navigation = useNavigation<PasswordChangedNavigationProp>();
 
   const handleContinue = () => {
-    navigation.navigate('Main');
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Auth'}],
+    });
   };
 
   return (
@@ -30,9 +32,16 @@ const PasswordChangedScreen = () => {
         <Text style={styles.successTitle}>Changed Successfully</Text>
       </View>
 
-      <View style={styles.buttonContainer}>
-        <Button title="Continue" onPress={handleContinue} />
-      </View>
+      <TouchableOpacity style={styles.buttonContainer} onPress={handleContinue}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text style={styles.buttonText}>Continue</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

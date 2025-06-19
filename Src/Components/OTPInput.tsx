@@ -54,7 +54,6 @@ const OTPInput: React.FC<OTPInputProps> = ({length, value, onChangeText}) => {
           onKeyPress={({nativeEvent}) => handleKeyPress(nativeEvent.key, index)}
           onFocus={() => handleFocus(index)}
           maxLength={1}
-          keyboardType="numeric"
           textAlign="center"
           secureTextEntry
         />
