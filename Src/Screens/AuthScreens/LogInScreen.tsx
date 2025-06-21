@@ -30,7 +30,10 @@ interface StoredUserData {
   status: string;
   idNumber: string;
   licenceNumber?: string;
+  phoneNumber: string;
+  licencePoints?: number;
   policeNumber?: string;
+  policePoints?: string;
   rank?: string;
   policeStation?: string;
   badgeNo?: string;
@@ -104,6 +107,7 @@ const LoginScreen = () => {
           userType: response.data.user.userType,
           fullName: response.data.user.fullName,
           idNumber: response.data.user.idNumber,
+          phoneNumber: response.data.user.phoneNumber,
           identificationNo: response.data.user.identificationNo ?? '',
           email: response.data.user.email,
           role: response.data.user.role,
@@ -112,6 +116,7 @@ const LoginScreen = () => {
 
         if (response.data.user.userType === 'licence') {
           userDataToStore.licenceNumber = response.data.user.licenceNumber;
+          userDataToStore.licencePoints = response.data.user.licencePoints;
           userDataToStore.expiryDate = response.data.user.expiryDate;
           userDataToStore.issueDate = response.data.user.issueDate;
           userDataToStore.vehicleCategories =
@@ -121,6 +126,7 @@ const LoginScreen = () => {
           userDataToStore.rank = response.data.user.rank;
           userDataToStore.policeStation = response.data.user.policeStation;
           userDataToStore.badgeNo = response.data.user.badgeNo;
+          userDataToStore.policePoints = response.data.user.policePoints;
         }
 
         await storeUserData(userDataToStore);

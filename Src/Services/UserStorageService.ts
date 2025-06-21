@@ -16,6 +16,9 @@ export interface StoredUserData {
   badgeNo?: string;
   issueDate?: string;
   expiryDate?: string;
+  licencePoints?: number;
+  policePoints?: string;
+  phoneNumber: string;
   vehicleCategories?: Array<{
     category: string;
     issueDate: string;
@@ -96,14 +99,29 @@ class UserStorageService {
     return userData?.idNumber || null;
   }
 
+  async getPhoneNumber(): Promise<string | null> {
+    const userData = await this.getUserData();
+    return userData?.phoneNumber || null;
+  }
+
   async getLicenceNumber(): Promise<string | null> {
     const userData = await this.getUserData();
     return userData?.licenceNumber || null;
   }
 
+  async getLicencePoints(): Promise<number | null> {
+    const userData = await this.getUserData();
+    return userData?.licencePoints || null;
+  }
+
   async getPoliceNumber(): Promise<string | null> {
     const userData = await this.getUserData();
     return userData?.policeNumber || null;
+  }
+
+  async getPolicePoints(): Promise<string | null> {
+    const userData = await this.getUserData();
+    return userData?.policePoints || null;
   }
 
   async getUserEmail(): Promise<string | null> {
