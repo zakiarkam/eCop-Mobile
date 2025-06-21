@@ -7,7 +7,6 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
-  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
@@ -97,7 +96,7 @@ const ProfileScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+      <View style={styles.content}>
         <View style={styles.profileCard}>
           <View style={styles.avatarContainer}>
             <View style={styles.avatar}>
@@ -114,7 +113,9 @@ const ProfileScreen = () => {
           </View>
         </View>
 
-        <View style={styles.formContainer}>
+        <ScrollView
+          style={styles.formContainer}
+          showsVerticalScrollIndicator={false}>
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Full Name</Text>
             <View style={styles.inputField}>
@@ -126,6 +127,13 @@ const ProfileScreen = () => {
             <Text style={styles.inputLabel}>Email Address</Text>
             <View style={styles.inputField}>
               <Text style={styles.inputValue}>{userData.email}</Text>
+            </View>
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.inputLabel}>Phone Number</Text>
+            <View style={styles.inputField}>
+              <Text style={styles.inputValue}>{userData.phoneNumber}</Text>
             </View>
           </View>
 
@@ -154,6 +162,13 @@ const ProfileScreen = () => {
                 <Text style={styles.inputLabel}>Police Number</Text>
                 <View style={styles.inputField}>
                   <Text style={styles.inputValue}>{userData.policeNumber}</Text>
+                </View>
+              </View>
+
+              <View style={styles.inputGroup}>
+                <Text style={styles.inputLabel}>Police Points</Text>
+                <View style={styles.inputField}>
+                  <Text style={styles.inputValue}>{userData.policePoints}</Text>
                 </View>
               </View>
 
@@ -193,6 +208,24 @@ const ProfileScreen = () => {
               <Text style={styles.subSectionTitle}>Licence Information</Text>
 
               <View style={styles.inputGroup}>
+                <Text style={styles.inputLabel}>Licence Number</Text>
+                <View style={styles.inputField}>
+                  <Text style={styles.inputValue}>
+                    {userData.licenceNumber}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.inputGroup}>
+                <Text style={styles.inputLabel}>Licence Points</Text>
+                <View style={styles.inputField}>
+                  <Text style={styles.inputValue}>
+                    {userData.licencePoints}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.inputGroup}>
                 <Text style={styles.inputLabel}>Licence Issue Date</Text>
                 <View style={styles.inputField}>
                   <Text style={styles.inputValue}>
@@ -206,15 +239,6 @@ const ProfileScreen = () => {
                 <View style={styles.inputField}>
                   <Text style={styles.inputValue}>
                     {userData.expiryDate?.slice(0, 10)}
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.inputGroup}>
-                <Text style={styles.inputLabel}>Licence Number</Text>
-                <View style={styles.inputField}>
-                  <Text style={styles.inputValue}>
-                    {userData.licenceNumber}
                   </Text>
                 </View>
               </View>
@@ -263,8 +287,8 @@ const ProfileScreen = () => {
               <Text style={styles.logoutButtonText}>Logout</Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

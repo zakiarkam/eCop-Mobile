@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 25,
     gap: 10,
-    marginBottom: 32,
+    marginBottom: 80,
   },
   logoutButtonText: {
     color: Colors.white,
