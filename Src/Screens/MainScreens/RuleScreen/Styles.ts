@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.white,
     textAlign: 'center',
-    marginLeft: -40,
   },
   detailsContent: {
     flex: 1,
