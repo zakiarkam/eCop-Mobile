@@ -20,6 +20,7 @@ export type ViolationRecord = {
 };
 
 export interface ViolationApiResponse<T = any> {
+  requiresVerification: boolean;
   success: boolean;
   data?: T;
   message?: string;

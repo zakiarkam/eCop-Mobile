@@ -195,4 +195,41 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#3182ce',
   },
+
+  //modal
+  verificationContainer: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  verificationText: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 10,
+    color: '#333',
+  },
+  phoneText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.primary,
+    marginBottom: 20,
+  },
+  verificationInput: {
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    borderRadius: 10,
+    padding: 15,
+    fontSize: 16,
+    fontWeight: 'bold',
+    width: 200,
+    marginBottom: 20,
+    backgroundColor: Colors.lightGray,
+  },
+  resendButton: {
+    padding: 10,
+  },
+  resendButtonText: {
+    color: Colors.primary,
+    fontSize: 14,
+    textDecorationLine: 'underline',
+  },
 });
