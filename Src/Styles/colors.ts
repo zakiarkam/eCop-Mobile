@@ -11,6 +11,10 @@ export const Colors = {
   lightBlue: '#64b5f6',
   green: '#4caf50',
   red: '#f44336',
+  error: '#FF6B6B',
+  warning: '#FFB347',
+  success: '#4ECDC4',
+  border: '#E1E8ED',
   transparent: 'transparent',
   shadow: 'rgba(0, 0, 0, 0.2)',
 };

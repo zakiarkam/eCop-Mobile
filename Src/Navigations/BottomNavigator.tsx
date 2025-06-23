@@ -3,17 +3,17 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from '../Screens/MainScreens/HomeScreen';
 import ProfileScreen from '../Screens/MainScreens/ProfileScreen';
-import YourCaseScreen from '../Screens/MainScreens/YourCaseScreens';
 import FineScreen from '../Screens/MainScreens/FineScreens';
 import RuleStackNavigator from '../Screens/MainScreens/RuleScreen/RuleStackNavigator';
 
 import {Colors} from '../Styles/colors';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import CaseStackNavigator from '../Screens/MainScreens/YourCaseScreens/CaseStackNavigator';
 
 export type BottomTabParamList = {
   Home: undefined;
-  YourCase: undefined;
+  Case: undefined;
   Fine: undefined;
   Rule: undefined;
   Profile: undefined;
@@ -30,7 +30,7 @@ const BottomNavigator = () => {
 
           if (route.name === 'Home') {
             iconName = 'home';
-          } else if (route.name === 'YourCase') {
+          } else if (route.name === 'Case') {
             iconName = 'bar-chart';
           } else if (route.name === 'Fine') {
             iconName = 'swap-horiz';
@@ -90,8 +90,8 @@ const BottomNavigator = () => {
         })}
       />
       <Tab.Screen
-        name="YourCase"
-        component={YourCaseScreen}
+        name="Case"
+        component={CaseStackNavigator}
         options={() => ({
           headerShown: false,
         })}
