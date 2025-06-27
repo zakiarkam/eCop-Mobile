@@ -46,7 +46,7 @@ export default function CaseDetailScreen() {
   };
 
   const getStatusColor = (status: string) => {
-    return status === 'active' ? '#E74C3C' : '#95A5A6';
+    return status === 'active' ? '#E74C3C' : '#2ECC71';
   };
 
   const handleContactPress = (phoneNumber: string) => {

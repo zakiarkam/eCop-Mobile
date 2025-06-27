@@ -13,7 +13,9 @@ export type ViolationRecord = {
   fine: string;
   points: number;
   violationDate: string;
-  status: 'active' | 'cancelled';
+  status: 'active' | 'paid' | 'cancelled';
+  paymentStatus: 'unpaid' | 'paid' | 'partially_paid';
+  paymentDate?: string;
   notes?: string;
   createdAt: string;
   updatedAt: string;
@@ -42,6 +44,7 @@ export interface ViolationFilters {
   licenceNumber?: string;
   policeNumber?: string;
   status?: string;
+  paymentStatus?: string;
   dateFrom?: string;
   dateTo?: string;
 }
@@ -79,17 +82,26 @@ class ViolationService {
   // Get violations by licence holder ID
   async getViolationsByLicenceHolder(
     licenceHolderId: string,
+    filters?: ViolationFilters,
   ): Promise<ViolationApiResponse<ViolationRecord[]>> {
     try {
-      const response = await fetch(
-        `${this.baseUrl}/licence/${licenceHolderId}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      const queryParams = new URLSearchParams();
+      if (filters) {
+        Object.entries(filters).forEach(([key, value]) => {
+          if (value) queryParams.append(key, value);
+        });
+      }
+
+      const url = `${this.baseUrl}/licence/${licenceHolderId}${
+        queryParams.toString() ? `?${queryParams.toString()}` : ''
+      }`;
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -110,17 +122,26 @@ class ViolationService {
   // Get violations by police officer ID
   async getViolationsByPoliceOfficer(
     policeOfficerId: string,
+    filters?: ViolationFilters,
   ): Promise<ViolationApiResponse<ViolationRecord[]>> {
     try {
-      const response = await fetch(
-        `${this.baseUrl}/police/${policeOfficerId}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      const queryParams = new URLSearchParams();
+      if (filters) {
+        Object.entries(filters).forEach(([key, value]) => {
+          if (value) queryParams.append(key, value);
+        });
+      }
+
+      const url = `${this.baseUrl}/police/${policeOfficerId}${
+        queryParams.toString() ? `?${queryParams.toString()}` : ''
+      }`;
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -192,6 +213,16 @@ class ViolationService {
       console.error(`Error fetching violation with ID ${id}:`, error);
       throw new Error('Failed to fetch violation');
     }
+  }
+
+  // Get unpaid violations for a licence holder
+  async getUnpaidViolations(
+    licenceHolderId: string,
+  ): Promise<ViolationApiResponse<ViolationRecord[]>> {
+    return this.getViolationsByLicenceHolder(licenceHolderId, {
+      paymentStatus: 'unpaid',
+      status: 'active',
+    });
   }
 
   // Validate violation data before submission
