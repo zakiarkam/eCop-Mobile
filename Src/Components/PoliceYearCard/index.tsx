@@ -1,25 +1,48 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {userStorageService} from '../../Services/UserStorageService';
+import violationService from '../../Services/apiServices/violationService';
 
 export default function index() {
   const [policePoints, setPolicePoints] = useState('0');
+  const [violationCount, setViolationCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPolicePoints = async () => {
+    const fetchPoliceData = async () => {
       try {
         const points = await userStorageService.getPolicePoints();
         setPolicePoints(points || '0');
+
+        const userData = await userStorageService.getUserData();
+        if (userData && userData.userType === 'police') {
+          const response = await violationService.getViolationsByPoliceOfficer(
+            userData.userId,
+          );
+
+          if (response?.success && response.data) {
+            // Filter violations for current year
+            const currentYear = new Date().getFullYear();
+            const thisYearViolations = response.data.filter(violation => {
+              const violationYear = new Date(
+                violation.violationDate,
+              ).getFullYear();
+              return violationYear === currentYear;
+            });
+
+            setViolationCount(thisYearViolations.length);
+          }
+        }
       } catch (error) {
-        console.error('Error fetching police points:', error);
+        console.error('Error fetching police data:', error);
         setPolicePoints('0');
+        setViolationCount(0);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchPolicePoints();
+    fetchPoliceData();
   }, []);
 
   const maxPoints = 100;
@@ -35,7 +58,9 @@ export default function index() {
           <Text style={styles.title}>
             No of offences this year you have Registered.
           </Text>
-          <Text style={styles.number}>02</Text>
+          <Text style={styles.number}>
+            {isLoading ? '...' : violationCount.toString().padStart(2, '0')}
+          </Text>
         </View>
 
         <View style={styles.progressContainer}>
