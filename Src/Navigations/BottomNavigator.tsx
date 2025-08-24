@@ -3,13 +3,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from '../Screens/MainScreens/HomeScreen';
 import ProfileScreen from '../Screens/MainScreens/ProfileScreen';
-import FineScreen from '../Screens/MainScreens/FineScreens';
+import FineScreen from '../Screens/MainScreens/FineScreens/FineScreen';
 import RuleStackNavigator from '../Screens/MainScreens/RuleScreen/RuleStackNavigator';
 
 import {Colors} from '../Styles/colors';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CaseStackNavigator from '../Screens/MainScreens/YourCaseScreens/CaseStackNavigator';
+import FineStackNavigator from '../Screens/MainScreens/FineScreens/FineStackNavigator';
 
 export type BottomTabParamList = {
   Home: undefined;
@@ -98,7 +99,7 @@ const BottomNavigator = () => {
       />
       <Tab.Screen
         name="Fine"
-        component={FineScreen}
+        component={FineStackNavigator}
         options={() => ({
           headerShown: false,
         })}

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
+  RefreshControl,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styles from './Styles';
@@ -76,6 +77,12 @@ const CaseMainScreen = () => {
     }
   };
 
+  const onRefresh = useCallback(() => {
+    if (userId && userType) {
+      loadViolations();
+    }
+  }, [userId, userType]);
+
   const handleViolationPress = (violation: ViolationRecord) => {
     navigation.navigate('CaseDetails', {violation});
   };
@@ -90,7 +97,7 @@ const CaseMainScreen = () => {
   };
 
   const getStatusColor = (status: string) => {
-    return status === 'active' ? '#E74C3C' : '#95A5A6';
+    return status === 'active' ? '#E74C3C' : '#2ECC71';
   };
 
   if (
@@ -100,7 +107,7 @@ const CaseMainScreen = () => {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>ECop</Text>
+          <Text style={styles.title}>eCop</Text>
           <Text style={styles.subtitle}>Loading...</Text>
         </View>
         <View style={styles.formContainer}>
@@ -120,7 +127,7 @@ const CaseMainScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>ECop</Text>
+        <Text style={styles.title}>eCop</Text>
         <Text style={styles.subtitle}>
           {userType === 'police'
             ? 'Violation Records Logged'
@@ -135,7 +142,17 @@ const CaseMainScreen = () => {
         <ScrollView
           style={styles.scrollContainer}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.scrollContent}>
+          contentContainerStyle={styles.scrollContent}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={['#4A90E2']}
+              tintColor="#4A90E2"
+              title="Pull to refresh"
+              titleColor="#4A90E2"
+            />
+          }>
           {violations.map(violation => (
             <TouchableOpacity
               key={violation._id}

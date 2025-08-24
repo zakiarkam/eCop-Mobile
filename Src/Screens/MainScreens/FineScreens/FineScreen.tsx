@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, ActivityIndicator, Alert} from 'react-native';
 import type {StackNavigationProp} from '@react-navigation/stack';
 import {Colors} from '../../../Styles/colors';
 import ViolationForm from '../../../Components/ViolationRecord';
 import {userStorageService} from '../../../Services/UserStorageService';
+import styles from './Styles';
+import LicenceFinesList from '../../../Components/LicenceFinesList';
 
 type FineScreenProps = {
   navigation: StackNavigationProp<any>;
@@ -11,6 +13,8 @@ type FineScreenProps = {
 
 const FineScreen = ({navigation}: FineScreenProps) => {
   const [userType, setUserType] = useState<'licence' | 'police' | null>(null);
+  const [userId, setUserId] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadUserData();
@@ -21,9 +25,13 @@ const FineScreen = ({navigation}: FineScreenProps) => {
       const storedUserData = await userStorageService.getUserData();
       if (storedUserData) {
         setUserType(storedUserData.userType);
+        setUserId(storedUserData.userId);
       }
     } catch (error) {
       console.error('Error loading user data:', error);
+      Alert.alert('Error', 'Failed to load user data');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,6 +42,20 @@ const FineScreen = ({navigation}: FineScreenProps) => {
   const handleCancel = () => {
     navigation.goBack();
   };
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Loading...</Text>
+        </View>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={Colors.primary} />
+          <Text style={styles.loadingText}>Loading user data...</Text>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -46,7 +68,7 @@ const FineScreen = ({navigation}: FineScreenProps) => {
       </View>
 
       {userType === 'licence' ? (
-        <Text>Pay Your Fines</Text>
+        <LicenceFinesList userId={userId} navigation={navigation} />
       ) : userType === 'police' ? (
         <ViolationForm
           onSuccess={handleSuccess}
@@ -54,31 +76,13 @@ const FineScreen = ({navigation}: FineScreenProps) => {
           userType={userType}
         />
       ) : (
-        <Text>Loading...</Text>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={Colors.primary} />
+          <Text style={styles.loadingText}>Loading...</Text>
+        </View>
       )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
-  header: {
-    backgroundColor: Colors.primary,
-    padding: 20,
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    color: Colors.white,
-    borderBottomColor: '#e0e0e0',
-    paddingTop: 70,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: Colors.white,
-  },
-});
 
 export default FineScreen;
