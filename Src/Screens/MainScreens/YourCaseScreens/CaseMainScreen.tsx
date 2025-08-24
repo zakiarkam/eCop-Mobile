@@ -107,7 +107,7 @@ const CaseMainScreen = () => {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>ECop</Text>
+          <Text style={styles.title}>eCop</Text>
           <Text style={styles.subtitle}>Loading...</Text>
         </View>
         <View style={styles.formContainer}>
@@ -127,7 +127,7 @@ const CaseMainScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>ECop</Text>
+        <Text style={styles.title}>eCop</Text>
         <Text style={styles.subtitle}>
           {userType === 'police'
             ? 'Violation Records Logged'

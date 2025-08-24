@@ -68,7 +68,7 @@ const RuleMainScreen = () => {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>ECop</Text>
+          <Text style={styles.title}>eCop</Text>
           <Text style={styles.subtitle}>Traffic Rules</Text>
         </View>
         <View style={styles.formContainer}>
@@ -84,7 +84,7 @@ const RuleMainScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>ECop</Text>
+        <Text style={styles.title}>eCop</Text>
         <Text style={styles.subtitle}>Traffic Rules</Text>
       </View>
 

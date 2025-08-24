@@ -35,7 +35,7 @@ export interface UpdateViolationPaymentData {
 }
 
 class PaymentService {
-  private baseUrl = 'http://192.168.8.135:3000/api/other/payments';
+  private baseUrl = 'http://192.168.1.2:3000/api/other/payments';
 
   async createPaymentIntent(
     data: CreatePaymentIntentData,
@@ -88,6 +88,39 @@ class PaymentService {
     } catch (error) {
       console.error('Error updating violation payment status:', error);
       throw error;
+    }
+  }
+
+  async getPaymentDetailsByViolation(
+    violationId: string,
+  ): Promise<PaymentApiResponse<PaymentRecord>> {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/by-violation/${violationId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      const result: PaymentApiResponse<PaymentRecord> = await response.json();
+
+      // Don't throw error for 404, just return the result
+      if (!response.ok && response.status !== 404) {
+        throw new Error(
+          result.message || `HTTP error! status: ${response.status}`,
+        );
+      }
+
+      return result;
+    } catch (error) {
+      console.error(
+        `Error fetching payment details for violation ${violationId}:`,
+        error,
+      );
+      throw new Error('Failed to fetch payment details');
     }
   }
 

@@ -445,6 +445,46 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     lineHeight: 20,
   },
+
+  paymentDetailsSection: {
+    backgroundColor: '#E8F4FD',
+    borderRadius: 8,
+    padding: 12,
+    marginTop: 10,
+    borderLeftWidth: 3,
+    borderLeftColor: '#4A90E2',
+  },
+  paymentDetailItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  paymentLabel: {
+    fontSize: 12,
+    color: '#666',
+    fontWeight: '500',
+    width: 80,
+  },
+  paymentValue: {
+    fontSize: 12,
+    color: '#333',
+    fontWeight: '600',
+    flex: 1,
+    textAlign: 'right',
+  },
+
+  paidStatus: {
+    color: '#2ECC71',
+    fontWeight: 'bold',
+  },
+  noPaymentText: {
+    fontSize: 14,
+    color: '#666',
+    fontStyle: 'italic',
+    textAlign: 'center',
+    paddingVertical: 10,
+  },
 });
 
 export default styles;

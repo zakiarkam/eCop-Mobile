@@ -73,7 +73,7 @@ export interface UpdateLicenceData {
 }
 
 class LicenceService {
-  private baseUrl = 'http://192.168.8.135:3000/api/other/licence';
+  private baseUrl = 'http://192.168.1.2:3000/api/other/licence';
 
   // Fetch all licence holders
   async getAllLicenceHolders(): Promise<ApiResponse<LicenceHolder[]>> {

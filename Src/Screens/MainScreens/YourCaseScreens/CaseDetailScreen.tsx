@@ -1,15 +1,78 @@
-import React from 'react';
-import {View, Text, ScrollView, Alert, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  Alert,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import styles from './Styles';
 import {CaseStackParamList} from './CaseStackNavigator';
 import {ViolationRecord} from '../../../Services/apiServices/violationService';
+import paymentService, {
+  PaymentRecord,
+} from '../../../Services/apiServices/paymentService';
+import {userStorageService} from '../../../Services/UserStorageService';
 
 type CaseDetailsRouteProp = RouteProp<CaseStackParamList, 'CaseDetails'>;
 
+interface ViolationWithPayment extends ViolationRecord {
+  paymentDetails?: PaymentRecord;
+}
+
 export default function CaseDetailScreen() {
   const route = useRoute<CaseDetailsRouteProp>();
-  const violation = route.params?.violation as ViolationRecord;
+  const violation = route.params?.violation as ViolationWithPayment;
+  const [paymentDetails, setPaymentDetails] = useState<PaymentRecord | null>(
+    null,
+  );
+  const [loadingPayment, setLoadingPayment] = useState(false);
+  const [userType, setUserType] = useState<'licence' | 'police' | null>(null);
+
+  useEffect(() => {
+    loadUserType();
+  }, []);
+
+  useEffect(() => {
+    if (
+      violation &&
+      userType === 'licence' &&
+      (violation.status === 'paid' || violation.paymentStatus === 'paid')
+    ) {
+      loadPaymentDetails();
+    }
+  }, [violation, userType]);
+
+  const loadUserType = async () => {
+    try {
+      const storedUserData = await userStorageService.getUserData();
+      if (storedUserData) {
+        setUserType(storedUserData.userType);
+      }
+    } catch (error) {
+      console.error('Error loading user type:', error);
+    }
+  };
+
+  const loadPaymentDetails = async () => {
+    if (!violation) return;
+
+    try {
+      setLoadingPayment(true);
+      const response = await paymentService.getPaymentDetailsByViolation(
+        violation._id,
+      );
+      if (response.success && response.data) {
+        setPaymentDetails(response.data);
+      }
+    } catch (error) {
+      console.error('Error loading payment details:', error);
+    } finally {
+      setLoadingPayment(false);
+    }
+  };
 
   if (!violation) {
     return (
@@ -36,6 +99,19 @@ export default function CaseDetailScreen() {
     });
   };
 
+  const formatDateTime = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+  };
+
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleTimeString('en-US', {
@@ -55,6 +131,11 @@ export default function CaseDetailScreen() {
       {text: 'OK', style: 'default'},
     ]);
   };
+
+  const isPaid =
+    violation.status === 'paid' || violation.paymentStatus === 'paid';
+  const currentPaymentDetails = paymentDetails || violation.paymentDetails;
+  const shouldShowPaymentInfo = userType === 'licence' && isPaid;
 
   return (
     <View style={styles.detailsContainer}>
@@ -151,7 +232,7 @@ export default function CaseDetailScreen() {
 
             <View style={styles.detailCard}>
               <View style={styles.detailRow}>
-                <Text style={styles.detailLabelLarge}>Police Number:</Text>
+                <Text style={styles.detailLabelLarge}>Police ID:</Text>
                 <Text style={styles.detailValueLarge}>
                   {violation.policeNumber}
                 </Text>
@@ -169,11 +250,75 @@ export default function CaseDetailScreen() {
               </View>
 
               <View style={styles.penaltyCard}>
-                <Text style={styles.penaltyLabel}>Demerit Points</Text>
+                <Text style={styles.penaltyLabel}>Points</Text>
                 <Text style={styles.penaltyValue}>{violation.points}</Text>
               </View>
             </View>
           </View>
+
+          {/* Payment Information - Only shown for licence holders */}
+          {shouldShowPaymentInfo && (
+            <View style={styles.detailSection}>
+              <Text style={styles.sectionHeaderText}>Payment Information</Text>
+
+              {loadingPayment ? (
+                <View style={styles.detailCard}>
+                  <View style={styles.loadingContainer}>
+                    <ActivityIndicator size="small" color="#4A90E2" />
+                    <Text style={styles.loadingText}>
+                      Loading payment details...
+                    </Text>
+                  </View>
+                </View>
+              ) : currentPaymentDetails ? (
+                <View style={styles.detailCard}>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabelLarge}>Payment Status:</Text>
+                    <Text style={[styles.detailValueLarge, styles.paidStatus]}>
+                      {currentPaymentDetails.status.toUpperCase()}
+                    </Text>
+                  </View>
+
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabelLarge}>Payment Date:</Text>
+                    <Text style={styles.detailValueLarge}>
+                      {formatDateTime(currentPaymentDetails.paymentDate)}
+                    </Text>
+                  </View>
+
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabelLarge}>Payment Method:</Text>
+                    <Text style={styles.detailValueLarge}>
+                      {currentPaymentDetails.paymentMethod.toUpperCase()}
+                    </Text>
+                  </View>
+
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabelLarge}>Amount Paid:</Text>
+                    <Text style={styles.detailValueLarge}>
+                      {currentPaymentDetails.currency.toUpperCase()}{' '}
+                      {currentPaymentDetails.amount}
+                    </Text>
+                  </View>
+
+                  {currentPaymentDetails.stripePaymentIntentId && (
+                    <View style={styles.detailRow}>
+                      <Text style={styles.detailLabelLarge}>Payment ID:</Text>
+                      <Text style={styles.detailValueSmall}>
+                        {currentPaymentDetails.stripePaymentIntentId}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+              ) : (
+                <View style={styles.detailCard}>
+                  <Text style={styles.noPaymentText}>
+                    Payment details not available
+                  </Text>
+                </View>
+              )}
+            </View>
+          )}
 
           {/* Notes Section */}
           {violation.notes && (
