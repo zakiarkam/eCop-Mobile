@@ -50,7 +50,7 @@ export interface ViolationFilters {
 }
 
 class ViolationService {
-  private baseUrl = 'http://192.168.1.2:3000/api/other/violations';
+  private baseUrl = 'http://192.168.8.135:3000/api/other/violations';
 
   async createViolation(
     data: CreateViolationData,
