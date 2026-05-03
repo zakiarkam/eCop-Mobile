@@ -26,7 +26,7 @@ export interface UpdateRuleData extends CreateRuleData {
 }
 
 class RulesApiService {
-  private baseUrl = 'http://192.168.8.135:3000/api/other/rules';
+  private baseUrl = 'http://192.168.8.136:3000/api/other/rules';
 
   //192.168.1.3
   //Fetch all rules from the server
