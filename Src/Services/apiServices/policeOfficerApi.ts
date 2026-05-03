@@ -36,16 +36,16 @@ export interface ApiResponse<T = any> {
 }
 
 class PoliceOfficerAPI {
-  private baseUrl = "/api/other/policeOfficer";
+  private baseUrl = 'http://192.168.8.136:3000/api/other/policeOfficer';
 
   // Create a new police officer
 
   async createOfficer(formData: PoliceOfficerFormData): Promise<ApiResponse> {
     try {
       const response = await fetch(`${this.baseUrl}/createOfficer`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
@@ -54,13 +54,13 @@ class PoliceOfficerAPI {
 
       if (!response.ok) {
         throw new Error(
-          result.message || `HTTP error! status: ${response.status}`
+          result.message || `HTTP error! status: ${response.status}`,
         );
       }
 
       return result;
     } catch (error) {
-      console.error("Error creating police officer:", error);
+      console.error('Error creating police officer:', error);
       throw error;
     }
   }
@@ -70,9 +70,9 @@ class PoliceOfficerAPI {
   async getAllOfficers(): Promise<ApiResponse<PoliceOfficer[]>> {
     try {
       const response = await fetch(`${this.baseUrl}/getAllOfficers`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
 
@@ -83,7 +83,7 @@ class PoliceOfficerAPI {
       const result: ApiResponse<PoliceOfficer[]> = await response.json();
       return result;
     } catch (error) {
-      console.error("Error fetching police officers:", error);
+      console.error('Error fetching police officers:', error);
       throw error;
     }
   }
@@ -93,9 +93,9 @@ class PoliceOfficerAPI {
   async getOfficer(officerId: string): Promise<ApiResponse<PoliceOfficer>> {
     try {
       const response = await fetch(`${this.baseUrl}/getOfficer/${officerId}`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
 
@@ -106,7 +106,7 @@ class PoliceOfficerAPI {
       const result: ApiResponse<PoliceOfficer> = await response.json();
       return result;
     } catch (error) {
-      console.error("Error fetching police officer:", error);
+      console.error('Error fetching police officer:', error);
       throw error;
     }
   }
@@ -115,13 +115,13 @@ class PoliceOfficerAPI {
 
   async updateOfficer(
     officerId: string,
-    formData: Partial<PoliceOfficerFormData>
+    formData: Partial<PoliceOfficerFormData>,
   ): Promise<ApiResponse<PoliceOfficer>> {
     try {
       const response = await fetch(`${this.baseUrl}/editOfficer/${officerId}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
@@ -130,13 +130,13 @@ class PoliceOfficerAPI {
 
       if (!response.ok) {
         throw new Error(
-          result.message || `HTTP error! status: ${response.status}`
+          result.message || `HTTP error! status: ${response.status}`,
         );
       }
 
       return result;
     } catch (error) {
-      console.error("Error updating police officer:", error);
+      console.error('Error updating police officer:', error);
       throw error;
     }
   }
@@ -148,24 +148,24 @@ class PoliceOfficerAPI {
       const response = await fetch(
         `${this.baseUrl}/deleteOfficer/${officerId}`,
         {
-          method: "DELETE",
+          method: 'DELETE',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
-        }
+        },
       );
 
       const result = await response.json();
 
       if (!response.ok && !result.success) {
         throw new Error(
-          result.message || `HTTP error! status: ${response.status}`
+          result.message || `HTTP error! status: ${response.status}`,
         );
       }
 
       return result;
     } catch (error) {
-      console.error("Error deleting police officer:", error);
+      console.error('Error deleting police officer:', error);
       throw error;
     }
   }

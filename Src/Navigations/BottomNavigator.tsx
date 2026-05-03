@@ -11,6 +11,7 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CaseStackNavigator from '../Screens/MainScreens/YourCaseScreens/CaseStackNavigator';
 import FineStackNavigator from '../Screens/MainScreens/FineScreens/FineStackNavigator';
+import NewScreen from '../Screens/MainScreens/newScreen';
 
 export type BottomTabParamList = {
   Home: undefined;

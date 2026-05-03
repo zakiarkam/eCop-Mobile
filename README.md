@@ -1,98 +1,146 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# eCop Mobile App
 
-# Getting Started
+A comprehensive React Native mobile application for traffic enforcement and police operations. The eCop mobile app enables officers to manage violations, records, payments, and announcements on the go.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Overview
 
-## Step 1: Start Metro
+eCop Mobile is a cross-platform React Native application built with TypeScript, providing real-time access to traffic violations, license holder information, and payment records. The app features a bottom tab navigation system with multiple authentication and content screens.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Features
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **Authentication**: Secure user login and verification system
+- **License Holder Management**: View and manage license holder information
+- **Violation Records**: Track and document traffic violations
+- **Payment Tracking**: Monitor paid fines and payments
+- **Police Announcements**: Receive and view important announcements
+- **Document Management**: Capture and store images and documents
+- **Offline Support**: Async storage for data persistence
+- **Payment Integration**: Stripe integration for online payments
+- **Responsive UI**: Optimized for various device sizes
 
-```sh
-# Using npm
+## Prerequisites
+
+- Node.js (v18+) and npm/yarn
+- React Native development environment setup
+- For iOS: Xcode, CocoaPods, and Ruby
+- For Android: Android Studio and Android SDK
+
+## Installation
+
+1. **Clone and install dependencies**:
+   ```bash
+   cd mobile
+   npm install
+   ```
+
+2. **iOS Setup** (if building for iOS):
+   ```bash
+   bundle install
+   bundle exec pod install
+   ```
+
+3. **Environment Setup**: 
+   Create a `.env` file with necessary API endpoints and keys.
+
+## Development
+
+### Start Development Server
+
+```bash
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
+### Run on Android
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
+```bash
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### iOS
+### Run on iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### Run Tests
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```bash
+npm test
+```
 
-## Step 3: Modify your app
+### Lint Code
 
-Now that you have successfully run the app, let's make changes!
+```bash
+npm run lint
+```
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## Project Structure
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+```
+Src/
+├── Assets/          # Images and media assets
+├── Components/      # Reusable UI components
+│   ├── CustomButton.tsx
+│   ├── CustomInput.tsx
+│   ├── OTPInput.tsx
+│   └── [Feature Components]/
+├── Navigations/     # Navigation configuration
+│   ├── AuthNavigator.tsx
+│   ├── BottomNavigator.tsx
+│   └── RootNavigator.tsx
+├── Screens/         # Screen components
+│   ├── AuthScreens/
+│   ├── MainScreens/
+│   └── SplashScreen/
+├── Services/        # API and storage services
+│   └── UserStorageService.ts
+└── Styles/          # Global styles
+```
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## Key Dependencies
 
-## Congratulations! :tada:
+- **React Native 0.79.2**: Core framework
+- **React Navigation**: Navigation library (bottom-tabs, native-stack, stack)
+- **Stripe**: Payment processing (`@stripe/stripe-react-native`)
+- **Async Storage**: Local data persistence
+- **React Native Vector Icons**: Icon library
+- **Gesture Handler & Reanimated**: Smooth animations
+- **Image Picker & Camera Roll**: Media handling
 
-You've successfully run and modified your React Native App. :partying_face:
+## Available Scripts
 
-### Now what?
+| Command | Description |
+|---------|-------------|
+| `npm start` | Start Metro development server |
+| `npm run android` | Build and run on Android |
+| `npm run ios` | Build and run on iOS |
+| `npm test` | Run test suite |
+| `npm run lint` | Lint code with ESLint |
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## Development Guidelines
 
-# Troubleshooting
+- Use TypeScript for type safety
+- Follow the existing component structure in `Src/Components/`
+- Store UI styles in component files or `Src/Styles/`
+- Use `UserStorageService` for local data management
+- Implement screens in `Src/Screens/` with appropriate navigation
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## Troubleshooting
 
-# Learn More
+### Metro Server Issues
+- Clear cache: `npm start -- --reset-cache`
+- Kill Metro and restart: `npm start`
 
-To learn more about React Native, take a look at the following resources:
+### iOS Build Issues
+- Clean build folder: `xcode-select --reset`
+- Reinstall pods: `rm -rf ios/Pods Podfile.lock && bundle exec pod install`
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-# eCop-Mobile
+### Android Build Issues
+- Clean gradle: `cd android && ./gradlew clean`
+- Rebuild: `npm run android`
+
+## Resources
+
+- [React Native Documentation](https://reactnative.dev/docs/getting-started)
+- [React Navigation Docs](https://reactnavigation.org/docs/getting-started)
+- [Stripe React Native Documentation](https://stripe.com/docs/stripe-js/react-native)
